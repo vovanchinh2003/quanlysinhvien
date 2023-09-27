@@ -61,5 +61,4 @@ public class SinhvieenController {
 		}
 		return "redirect:/sinhvien/listsinhvien";
 	}
-
 }
