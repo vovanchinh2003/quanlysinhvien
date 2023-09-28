@@ -1,115 +1,94 @@
 package pxu.com.model;
 
+import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.JoinColumn;
 
 @Entity
-@Table(name = "sinhvien")
 public class SinhVien {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+    @Column(name = "hoten")
+    private String hoten;
+    @Column(name = "diachi")
+    private String diachi;
+    @Column(name = "namsinh")
+    private int namsinh;
+    @Column(name = "gioitinh")
+    private boolean gioitinh;
+    @Column(name = "quequan")
+    private String quequan;
+    @ManyToOne
+    @JoinColumn(name = "khoahoc_id")
+    private KhoaHoc khoahoc;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int sinhvien_id;
-	private String hoTen;
-	private Date ngaySinh;
-	private String diaChiHienTai;
-	private String cccd;
-	private String gioiTinh;
-	private String queQuan;
+    public SinhVien(Long id, String hoten, String diachi, int namsinh, boolean gioitinh, String quequan, KhoaHoc khoahoc) {
+        this.id = id;
+        this.hoten = hoten;
+        this.diachi = diachi;
+        this.namsinh = namsinh;
+        this.gioitinh = gioitinh;
+        this.quequan = quequan;
+        this.khoahoc = khoahoc;
+    }
 
-	@ManyToOne
-	@JoinColumn(name = "khoahoc_id")
-	private KhoaHoc khoaHoc;
+    public SinhVien() {
+    }
 
-	public SinhVien() {
-		super();
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public int getSinhvien_id() {
-		return sinhvien_id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setSinhvien_id(int sinhvien_id) {
-		this.sinhvien_id = sinhvien_id;
-	}
+    public String getHoten() {
+        return hoten;
+    }
 
-	public String getHoTen() {
-		return hoTen;
-	}
+    public void setHoten(String hoten) {
+        this.hoten = hoten;
+    }
 
-	public void setHoTen(String hoTen) {
-		this.hoTen = hoTen;
-	}
+    public String getDiachi() {
+        return diachi;
+    }
 
-	public Date getNgaySinh() {
-		return ngaySinh;
-	}
+    public void setDiachi(String diachi) {
+        this.diachi = diachi;
+    }
 
-	public void setNgaySinh(Date ngaySinh) {
-		this.ngaySinh = ngaySinh;
-	}
+    public int getNamsinh() {
+        return namsinh;
+    }
 
-	public String getDiaChiHienTai() {
-		return diaChiHienTai;
-	}
+    public void setNamsinh(int namsinh) {
+        this.namsinh = namsinh;
+    }
 
-	public void setDiaChiHienTai(String diaChiHienTai) {
-		this.diaChiHienTai = diaChiHienTai;
-	}
+    public boolean isGioitinh() {
+        return gioitinh;
+    }
 
-	public String getCccd() {
-		return cccd;
-	}
+    public void setGioitinh(boolean gioitinh) {
+        this.gioitinh = gioitinh;
+    }
 
-	public void setCccd(String cccd) {
-		this.cccd = cccd;
-	}
+    public String getQuequan() {
+        return quequan;
+    }
 
-	public String getGioiTinh() {
-		return gioiTinh;
-	}
+    public void setQuequan(String quequan) {
+        this.quequan = quequan;
+    }
 
-	public void setGioiTinh(String gioiTinh) {
-		this.gioiTinh = gioiTinh;
-	}
+    public KhoaHoc getKhoahoc() {
+        return khoahoc;
+    }
 
-	public String getQueQuan() {
-		return queQuan;
-	}
-
-	public void setQueQuan(String queQuan) {
-		this.queQuan = queQuan;
-	}
-
-	public KhoaHoc getKhoaHoc() {
-		return khoaHoc;
-	}
-
-	public void setKhoaHoc(KhoaHoc khoaHoc) {
-		this.khoaHoc = khoaHoc;
-	}
-
-	public SinhVien(int sinhvien_id, String hoTen, Date ngaySinh, String diaChiHienTai, String cccd, String gioiTinh,
-			String queQuan, KhoaHoc khoaHoc) {
-		super();
-		this.sinhvien_id = sinhvien_id;
-		this.hoTen = hoTen;
-		this.ngaySinh = ngaySinh;
-		this.diaChiHienTai = diaChiHienTai;
-		this.cccd = cccd;
-		this.gioiTinh = gioiTinh;
-		this.queQuan = queQuan;
-		this.khoaHoc = khoaHoc;
-	}
-
+    public void setKhoahoc(KhoaHoc khoahoc) {
+        this.khoahoc = khoahoc;
+    }
 }

@@ -1,47 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page isELIgnored="false"%>
-
+<%@page isELIgnored="false"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Danh sách Sinh Viên</title>
+<title>SinhVien List</title>
+
+<!-- Add Bootstrap CSS via CDN -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 </head>
 <body>
-	<a href="showformsinhvien">add</a>
-	<h1>Danh sách Sinh Viên</h1>
-	<table border="1">
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Họ Tên</th>
-				<th>Ngày Sinh</th>
-				<th>Địa Chỉ Hiện Tại</th>
-				<th>CCCD</th>
-				<th>Giới Tính</th>
-				<th>Quê Quán</th>
-				<th>Khoahoc_id</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${sinhViens}" var="sinhVien">
+	<div class="container mt-5">
+		<h1 class="mb-4">SinhVien List</h1>
+		<a href="${pageContext.request.contextPath}/sinhvien/showformsinhvien"
+			class="btn btn-primary mb-4">Thêm sinh viên</a> <a
+			href="${pageContext.request.contextPath}/khoahoc"
+			class="btn btn-warning mb-4">Danh sách khoá học</a>
+		<table class="table table-bordered">
+			<thead>
 				<tr>
-					<td><c:out value="${sinhVien.sinhvien_id}" /></td>
-					<td><c:out value="${sinhVien.hoTen}" /></td>
-					<td><c:out value="${sinhVien.ngaySinh}" /></td>
-					<td><c:out value="${sinhVien.diaChiHienTai}" /></td>
-					<td><c:out value="${sinhVien.cccd}" /></td>
-					<td><c:out value="${sinhVien.gioiTinh}" /></td>
-					<td><c:out value="${sinhVien.queQuan}" /></td>
-					<td><c:out value="${sinhVien.khoaHoc.khoahoc_id}" /></td>
-					<td><a href="delete?sinhvienId=${sinhVien.sinhvien_id}">Delete</a>
-						<a href="updatekhoahoc?sinhvienId=${sinhVien.sinhvien_id}">update</a></td>
+					<th>ID</th>
+					<th>Họ tên</th>
+					<th>Khoá học</th>
+					<th></th>
 				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<c:forEach var="sinhvien" items="${sinhViens}">
+					<tr>
+						<td>${sinhvien.id}</td>
+						<td>${sinhvien.hoten}</td>
+						<td>${sinhvien.khoahoc.tenkhoahoc}</td>
+						<td><a href="" class="btn btn-info btn-sm text-white">View</a>
+							<a href="updatesinhvien?sinhvienId=${sinhvien.id}" class="btn btn-warning btn-sm text-white">Edit</a> <a
+							href="delete?sinhvienId=${sinhvien.id}">Delete</a></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- Add Bootstrap JavaScript and Popper.js via CDN (required for some Bootstrap features) -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@2.9.3/dist/umd/popper.min.js"></script>
 </body>
 </html>

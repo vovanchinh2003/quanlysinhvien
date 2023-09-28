@@ -1,58 +1,55 @@
 package pxu.com.model;
 
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
-@Table(name = "khoahoc")
 public class KhoaHoc {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int khoahoc_id;
-	private String tenKhoaHoc;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@OneToMany(mappedBy = "sinhvien_id")
-	private List<SinhVien> sinhViens;
+    @Column(name = "tenkhoahoc")
+    private String tenkhoahoc;
 
-	public int getKhoahoc_id() {
-		return khoahoc_id;
-	}
+    @Column(name = "nienkhoa")
+    private String nienkhoa;
 
-	public void setKhoahoc_id(int khoahoc_id) {
-		this.khoahoc_id = khoahoc_id;
-	}
+    @OneToMany(mappedBy = "khoahoc", cascade = CascadeType.ALL)
+    private Collection<SinhVien> sinhviens;
 
-	public String getTenKhoaHoc() {
-		return tenKhoaHoc;
-	}
+    public KhoaHoc() {
+    }
 
-	public void setTenKhoaHoc(String tenKhoaHoc) {
-		this.tenKhoaHoc = tenKhoaHoc;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public List<SinhVien> getSinhViens() {
-		return sinhViens;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setSinhViens(List<SinhVien> sinhViens) {
-		this.sinhViens = sinhViens;
-	}
+    public String getTenkhoahoc() {
+        return tenkhoahoc;
+    }
 
-	public KhoaHoc(int khoahoc_id, String tenKhoaHoc, List<SinhVien> sinhViens) {
-		super();
-		this.khoahoc_id = khoahoc_id;
-		this.tenKhoaHoc = tenKhoaHoc;
-		this.sinhViens = sinhViens;
-	}
+    public void setTenkhoahoc(String tenkhoahoc) {
+        this.tenkhoahoc = tenkhoahoc;
+    }
 
-	public KhoaHoc() {
-		super();
-	}
+    public String getNienkhoa() {
+        return nienkhoa;
+    }
 
+    public void setNienkhoa(String nienkhoa) {
+        this.nienkhoa = nienkhoa;
+    }
+
+    public Collection<SinhVien> getSinhviens() {
+        return sinhviens;
+    }
+
+    public void setSinhviens(Collection<SinhVien> sinhviens) {
+        this.sinhviens = sinhviens;
+    }
 }

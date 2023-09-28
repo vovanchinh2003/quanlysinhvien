@@ -1,6 +1,7 @@
 package pxu.com.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,34 +32,45 @@ public class SinhvieenController {
 
 	@GetMapping("/listsinhvien")
 	public String listsinhvien(Model model) {
-		List<SinhVien> sinhViens = sinhVienService.getAllSinhVien();
+		List<SinhVien> sinhViens = sinhVienService.getSinhViens();
 		model.addAttribute("sinhViens", sinhViens);
 		return "listsinhvien";
 	}
 
 	@GetMapping("/showformsinhvien")
 	public String showForm(Model model) {
-		SinhVien sinhVien = new SinhVien();
-		List<KhoaHoc> listKhoaHoc = khoaHocService.getAllKhoaHoc();
-		model.addAttribute("sinhVien", sinhVien);
+		List<KhoaHoc> listKhoaHoc = khoaHocService.getKhoaHocs();
+		model.addAttribute("sinhVien", new SinhVien());
 		model.addAttribute("listKhoaHoc", listKhoaHoc);
-		return "formsinhvien";
+		return "formsinhvienn";
 	}
 
 	@GetMapping("/delete")
-	public String deleteCustomer(@RequestParam("sinhvienId") int id) throws ResourceNotFoundException {
+	public String deleteCustomer(@RequestParam("sinhvienId") Long id) throws ResourceNotFoundException {
 		sinhVienService.deleteSinhVien(id);
 		return "redirect:/sinhvien/listsinhvien";
 	}
 
 	@PostMapping("/savesinhvien")
-	public String savesinhvien(@ModelAttribute("sinhVien") SinhVien sinhVien, KhoaHoc khoaHoc) {
-		int khoaHocId = sinhVien.getKhoaHoc().getKhoahoc_id();
-		khoaHocService.getKhoaHocById(khoaHocId).orElse(null);
-		if (khoaHoc != null) {
-			sinhVien.setKhoaHoc(khoaHoc);
-			sinhVienService.createSinhVien(sinhVien);
-		}
+	public String savesinhvien(@ModelAttribute("sinhVien") SinhVien sinhVien) {
+		sinhVienService.saveSinhVien(sinhVien);
 		return "redirect:/sinhvien/listsinhvien";
 	}
+
+	@GetMapping("/updatesinhvien")
+	public String showFormForUpdate(@RequestParam("sinhvienId") Long id, Model theModel)
+			throws ResourceNotFoundException {
+		Optional<SinhVien> sinhvien = sinhVienService.getSinhVien(id);
+		List<KhoaHoc> listKhoaHoc = khoaHocService.getKhoaHocs();
+		theModel.addAttribute("listKhoaHoc", listKhoaHoc);
+		theModel.addAttribute("sinhvien", sinhvien);
+		return "updatesinhvien";
+	}
+
+//	@PostMapping("/editsinhvien")
+//	public String updateisnhvien(@ModelAttribute("sinhvienId") SinhVien sinhVien) {
+//		khoaHocService.updateKhoaHoc(khoaHoc.getId(), khoaHoc);
+//		return "redirect:/khoahoc/listkhoahoc";
+//	}
+
 }

@@ -1,48 +1,45 @@
 package pxu.com.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import pxu.com.model.SinhVien;
-import pxu.com.repository.SinhVienRepository;
-
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import pxu.com.model.SinhVien;
+import pxu.com.repository.SinhVienRepository;
+
 @Service
 public class SinhVienService {
+    @Autowired
+    private SinhVienRepository sinhVienRepository;
 
-	private SinhVienRepository sinhVienRepository;
+    @Transactional
+    public List<SinhVien> getSinhViens() {
+        return sinhVienRepository.findAll();
+    }
 
-	@Autowired
-	public SinhVienService(SinhVienRepository sinhVienRepository) {
-		this.sinhVienRepository = sinhVienRepository;
-	}
+    @Transactional
+    public void saveSinhVien(SinhVien theSinhVien) {
+        sinhVienRepository.save(theSinhVien);
+    }
 
-	public List<SinhVien> getAllSinhVien() {
-		return sinhVienRepository.findAll();
-	}
+    @Transactional
+    public Optional<SinhVien> getSinhVien(Long theId) {
+        return sinhVienRepository.findById(theId);
+    }
 
-	public Optional<SinhVien> getSinhVienById(int id) {
-		return sinhVienRepository.findById(id);
-	}
-
-	public SinhVien createSinhVien(SinhVien sinhVien) {
-		return sinhVienRepository.save(sinhVien);
-	}
-
-	public Optional<SinhVien> updateSinhVien(int id, SinhVien sinhVien) {
+    @Transactional
+    public void deleteSinhVien(Long theId) {
+        sinhVienRepository.deleteById(theId);
+    }
+    public Optional<SinhVien> updatesinhvien(Long id, SinhVien sinhVien) {
 		if (!sinhVienRepository.existsById(id)) {
 			return Optional.empty();
 		}
-		sinhVien.setSinhvien_id(id);
+		sinhVien.setId(id);
 		return Optional.of(sinhVienRepository.save(sinhVien));
-	}
-
-	public boolean deleteSinhVien(int id) {
-		if (!sinhVienRepository.existsById(id)) {
-			return false;
-		}
-		sinhVienRepository.deleteById(id);
-		return true;
 	}
 }

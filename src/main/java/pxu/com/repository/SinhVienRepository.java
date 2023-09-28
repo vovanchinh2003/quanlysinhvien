@@ -5,8 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import pxu.com.model.SinhVien;
 
+@Repository
+public interface SinhVienRepository extends JpaRepository<SinhVien, Long> {
 
-@Repository("sinhVienRepository")
-public interface SinhVienRepository extends JpaRepository<SinhVien, Integer> {
 
 }

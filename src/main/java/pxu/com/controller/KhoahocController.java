@@ -28,7 +28,7 @@ public class KhoahocController {
 
 	@GetMapping("/listkhoahoc")
 	public String listkhoahoc(Model model) {
-		List<KhoaHoc> khoaHocs = khoaHocService.getAllKhoaHoc();
+		List<KhoaHoc> khoaHocs = khoaHocService.getKhoaHocs();
 		model.addAttribute("khoaHocs", khoaHocs);
 		return "listkhoahoc";
 	}
@@ -42,27 +42,27 @@ public class KhoahocController {
 
 	@PostMapping("/addkhoahoc")
 	public String addKhoaHoc(@ModelAttribute("khoaHocs") KhoaHoc khoaHoc) {
-		khoaHocService.createKhoaHoc(khoaHoc);
+		khoaHocService.saveKhoaHoc(khoaHoc);
 		return "redirect:/khoahoc/listkhoahoc";
 	}
 
 	@GetMapping("/delete")
-	public String deleteCustomer(@RequestParam("khoahocid") int id) throws ResourceNotFoundException {
+	public String deleteCustomer(@RequestParam("khoahocid") Long id) throws ResourceNotFoundException {
 		khoaHocService.deleteKhoaHoc(id);
 		return "redirect:/khoahoc/listkhoahoc";
 	}
 
 	@GetMapping("/updatekhoahoc")
-	public String showFormForUpdate(@RequestParam("khoahocid") int id, Model theModel)
+	public String showFormForUpdate(@RequestParam("khoahocid") Long id, Model theModel)
 			throws ResourceNotFoundException {
-		Optional<KhoaHoc> khoaHoc = khoaHocService.getKhoaHocById(id);
+		Optional<KhoaHoc> khoaHoc = khoaHocService.getKhoaHoc(id);
 		theModel.addAttribute("khoaHoc", khoaHoc);
 		return "updatekhoahoc";
 	}
 
 	@PostMapping("/editkhoahoc")
-	public String updateProduct(@ModelAttribute("khoahoc_id") KhoaHoc khoaHoc) {
-		khoaHocService.updateKhoaHoc(khoaHoc.getKhoahoc_id(), khoaHoc);
+	public String updateProduct(@ModelAttribute("id") KhoaHoc khoaHoc) {
+		khoaHocService.updateKhoaHoc(khoaHoc.getId(), khoaHoc);
 		return "redirect:/khoahoc/listkhoahoc";
 	}
 }

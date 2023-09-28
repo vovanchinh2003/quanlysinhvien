@@ -2,6 +2,8 @@ package pxu.com.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import pxu.com.model.KhoaHoc;
 import pxu.com.repository.KhoaHocRepository;
 
@@ -10,40 +12,35 @@ import java.util.Optional;
 
 @Service
 public class KhoaHocService {
-
+	@Autowired
 	private KhoaHocRepository khoaHocRepository;
 
-	@Autowired
-	public KhoaHocService(KhoaHocRepository khoaHocRepository) {
-		this.khoaHocRepository = khoaHocRepository;
-	}
-
-	public List<KhoaHoc> getAllKhoaHoc() {
+	@Transactional
+	public List<KhoaHoc> getKhoaHocs() {
 		return khoaHocRepository.findAll();
 	}
 
-	public Optional<KhoaHoc> getKhoaHocById(int id) {
-		return khoaHocRepository.findById(id);
+	@Transactional
+	public void saveKhoaHoc(KhoaHoc theKhoaHoc) {
+		khoaHocRepository.save(theKhoaHoc);
 	}
 
-	public KhoaHoc createKhoaHoc(KhoaHoc khoaHoc) {
-		return khoaHocRepository.save(khoaHoc);
+	@Transactional
+	public Optional<KhoaHoc> getKhoaHoc(Long theId) {
+		return khoaHocRepository.findById(theId);
 	}
-	
 
-	public Optional<KhoaHoc> updateKhoaHoc(int id, KhoaHoc khoaHoc) {
+	@Transactional
+	public void deleteKhoaHoc(Long theId) {
+		khoaHocRepository.deleteById(theId);
+	}
+
+	public Optional<KhoaHoc> updateKhoaHoc(Long id, KhoaHoc khoaHoc) {
 		if (!khoaHocRepository.existsById(id)) {
 			return Optional.empty();
 		}
-		khoaHoc.setKhoahoc_id(id);
+		khoaHoc.setId(id);
 		return Optional.of(khoaHocRepository.save(khoaHoc));
 	}
 
-	public boolean deleteKhoaHoc(int id) {
-		if (!khoaHocRepository.existsById(id)) {
-			return false;
-		}
-		khoaHocRepository.deleteById(id);
-		return true;
-	}
 }
