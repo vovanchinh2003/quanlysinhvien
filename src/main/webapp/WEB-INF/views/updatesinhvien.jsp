@@ -62,8 +62,7 @@
 			<div class="text-center">
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</div>
-			<a href="${pageContext.request.contextPath}/">Back to SinhVien
-				List</a>
+			
 		</form:form>
 	</div>
 

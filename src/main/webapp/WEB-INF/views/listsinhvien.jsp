@@ -17,9 +17,7 @@
 	<div class="container mt-5">
 		<h1 class="mb-4">SinhVien List</h1>
 		<a href="${pageContext.request.contextPath}/sinhvien/showformsinhvien"
-			class="btn btn-primary mb-4">Thêm sinh viên</a> <a
-			href="${pageContext.request.contextPath}/khoahoc"
-			class="btn btn-warning mb-4">Danh sách khoá học</a>
+			class="btn btn-primary mb-4">Thêm sinh viên</a> 
 		<table class="table table-bordered">
 			<thead>
 				<tr>

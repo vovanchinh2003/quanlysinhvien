@@ -39,8 +39,6 @@
 			</tbody>
 		</table>
 
-		<a href="${pageContext.request.contextPath}/khoahoc/showform"
-			class="btn btn-primary">Thêm khoá học</a>
 	</div>
 
 	<!-- Add Bootstrap JavaScript and Popper.js via CDN (required for some Bootstrap features) -->
